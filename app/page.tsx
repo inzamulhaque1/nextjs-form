@@ -25,11 +25,15 @@ export default function Home() {
   const onSubmit = (data: any) => {
     console.log("Submitted Data:", data);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const formattedUsers = data.users.map((user: any, index: number) => 
-      `<b>User ${index + 1}:</b><br>
+    const formattedUsers = data.users
+      .map(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (user: any, index: number) =>
+          `<b>User ${index + 1}:</b><br>
        Name: ${user.name}<br>
        Email: ${user.email}<br><br>`
-    ).join('');
+      )
+      .join("");
 
     Swal.fire({
       title: "Form Submitted Successfully!",
@@ -43,13 +47,12 @@ export default function Home() {
       confirmButtonText: "OK",
       confirmButtonColor: "#3b82f6", // sky-500
     });
-    
   };
 
   return (
     <main>
       <div className="text-center font-bold mt-4 text-sky-600 text-4xl">
-        Welcome to input Section
+        Welcome to input Section ({fields.length})
       </div>
 
       <div className="flex justify-center mt-5">
@@ -63,7 +66,6 @@ export default function Home() {
                     className="p-4 border-2 border-sky-400 m-2 rounded-3xl bg-sky-50 relative"
                   >
                     <div className="grid grid-cols-2 gap-2 ">
-
                       <div className="rounded-l-3xl border border-sky-200 bg-amber-50 text-sky-600 px-4 py-1 focus:bg-amber-300">
                         <label>Name:</label>
                         <input
@@ -122,9 +124,14 @@ export default function Home() {
                   Add User
                 </button>
               </div>
-              <div className="flex items-center  px-3 py-1 bg-sky-700 rounded-2xl hover:bg-sky-900 font-bold text-white cursor-pointer ">
-                <button type="submit" className=" cursor-pointer">Submit</button> <MdAdsClick className="ml-2"  />
-              </div>
+              {fields.length > 0 && (
+                <div className="flex items-center px-3 py-1 bg-sky-700 rounded-2xl hover:bg-sky-900 font-bold text-white cursor-pointer">
+                  <button type="submit" className="cursor-pointer">
+                    Submit
+                  </button>
+                  <MdAdsClick className="ml-2" />
+                </div>
+              )}
             </div>
           </form>
         </div>
