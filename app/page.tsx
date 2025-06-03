@@ -2,7 +2,7 @@
 import { useFieldArray, useForm } from "react-hook-form";
 import { IoPersonAddOutline, IoPersonRemoveSharp } from "react-icons/io5";
 import { MdAdsClick } from "react-icons/md";
-// import Swal from "sweetalert2";
+import Swal from "sweetalert2";
 
 export default function Home() {
   const {
@@ -24,6 +24,26 @@ export default function Home() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSubmit = (data: any) => {
     console.log("Submitted Data:", data);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const formattedUsers = data.users.map((user: any, index: number) => 
+      `<b>User ${index + 1}:</b><br>
+       Name: ${user.name}<br>
+       Email: ${user.email}<br><br>`
+    ).join('');
+
+    Swal.fire({
+      title: "Form Submitted Successfully!",
+      html: `
+        <div style="text-align: left;">
+          <h3>Submitted Data:</h3>
+          ${formattedUsers}
+        </div>
+      `,
+      icon: "success",
+      confirmButtonText: "OK",
+      confirmButtonColor: "#3b82f6", // sky-500
+    });
+    
   };
 
   return (
