@@ -1,11 +1,8 @@
 "use client";
 import { useFieldArray, useForm } from "react-hook-form";
+import { IoPersonAddOutline, IoPersonRemoveSharp } from "react-icons/io5";
+import { MdAdsClick } from "react-icons/md";
 // import Swal from "sweetalert2";
-
-// type NewInput = {
-//   type: string;
-//   inputName: string;
-// };
 
 export default function Home() {
   const {
@@ -37,25 +34,24 @@ export default function Home() {
 
       <div className="flex justify-center mt-5">
         <div>
-          <h2>Dynamic Users Form</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid grid-cols-2">
               {fields.map((field, index) => {
-                console.log(field, index + 1);
                 return (
                   <div
                     key={field.id}
-                    
+                    className="p-4 border-2 border-sky-400 m-2 rounded-3xl bg-sky-50 relative"
                   >
-                    <div className="grid grid-cols-2">
-                      <div>
+                    <div className="grid grid-cols-2 gap-2 ">
+
+                      <div className="rounded-l-3xl border border-sky-200 bg-amber-50 text-sky-600 px-4 py-1 focus:bg-amber-300">
                         <label>Name:</label>
                         <input
                           {...register(`users.${index}.name`, {
                             required: "Name is required",
                           })}
+                          className="pl-5"
                           placeholder="Enter name"
-                          style={{ width: "60%" }}
                         />
                         {errors.users?.[index]?.name && (
                           <p style={{ color: "red" }}>
@@ -64,15 +60,15 @@ export default function Home() {
                         )}
                       </div>
 
-                      <div style={{ marginTop: "0.5rem" }}>
+                      <div className="rounded-r-3xl border border-sky-200 bg-amber-50 text-sky-600 px-4 py-1">
                         <label>Email:</label>
                         <input
                           {...register(`users.${index}.email`, {
                             required: "Email is required",
                           })}
                           placeholder="Enter email"
+                          className="pl-5"
                           type="email"
-                          style={{ width: "60%" }}
                         />
                         {errors.users?.[index]?.email && (
                           <p style={{ color: "red" }}>
@@ -84,16 +80,10 @@ export default function Home() {
 
                     <button
                       type="button"
+                      className="absolute -top-3 -right-3 cursor-pointer"
                       onClick={() => remove(index)}
-                      style={{
-                        marginTop: "0.5rem",
-                        backgroundColor: "#f44336",
-                        color: "#fff",
-                        border: "none",
-                        padding: "5px 10px",
-                      }}
                     >
-                      Remove
+                      <IoPersonRemoveSharp className="bg-red-500 p-2 text-3xl rounded-full text-white hover:text-red-500 hover:bg-amber-50 border border-sky-200 " />
                     </button>
                   </div>
                 );
@@ -101,20 +91,20 @@ export default function Home() {
             </div>
 
             <br />
-            <div className="space-x-5">
-              <button
-                type="button"
-                onClick={() => append({ name: "", email: "" })}
-                className="px-3 py-1 bg-green-700 rounded-2xl font-bold text-white cursor-pointer"
-              >
-                + Add User
-              </button>
-              <button
-                type="submit"
-                className="px-3 py-1 bg-sky-700 rounded-2xl font-bold text-white cursor-pointer"
-              >
-                Submit
-              </button>
+            <div className="space-x-5 flex ">
+              <div className="flex items-center px-3 py-1 bg-green-700 hover:bg-green-900 rounded-2xl font-bold text-white cursor-pointer">
+                <IoPersonAddOutline className="mr-2" />
+                <button
+                  type="button"
+                  onClick={() => append({ name: "", email: "" })}
+                  className=" cursor-pointer"
+                >
+                  Add User
+                </button>
+              </div>
+              <div className="flex items-center  px-3 py-1 bg-sky-700 rounded-2xl hover:bg-sky-900 font-bold text-white cursor-pointer ">
+                <button type="submit" className=" cursor-pointer">Submit</button> <MdAdsClick className="ml-2"  />
+              </div>
             </div>
           </form>
         </div>
